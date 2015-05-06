@@ -22,3 +22,10 @@ class Customer(UserMixin, db.Model):
 
     def __repr__(self):
         return '<Customer %r>' % self.name
+
+
+from . import login_manager
+
+@login_manager.user_loader
+def load_user(customer_id):
+    return Customer.query.get(int(customer_id))
