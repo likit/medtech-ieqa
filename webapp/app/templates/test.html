@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+Hello,
+
+{% block page_content %}
+    <h1>Test Page</h1>
+    <h3>Test ID: {{ test.id  }}</h3>
+    <h3>Program: {{ test.type }}</h3>
+    {% if test.status %}
+    <h3>Registered: <span class="glyphicon glyphicon-ok" arial-hidden="true"></span></h3>
+    {% else %}
+    <h3>Registered: <span class="glyphicon glyphicon-remove" arial-hidden="true"></span></h3>
+    {% endif %}
+    <h3>Added date and time: {{ test.date }}</h3>
+{% endblock %}
