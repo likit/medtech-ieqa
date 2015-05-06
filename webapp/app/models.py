@@ -34,9 +34,20 @@ class Organization(db.Model):
     province = db.Column(db.String(128))
 
     customers = db.relationship('Customer', backref='org', lazy='dynamic')
+    tests = db.relationship('Test', backref='org', lazy='dynamic')
 
     def __repr__(self):
         return '<Organization %r>' % self.name
+
+class Test(db.Model):
+    __tablename__ = 'tests'
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String(64))
+    date = db.Column(db.DateTime)
+    status = db.Column(db.Boolean)
+
+    org_id = db.Column(db.Integer, db.ForeignKey('orgs.id'))
+
 
 @login_manager.user_loader
 def load_user(customer_id):

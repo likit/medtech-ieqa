@@ -6,7 +6,26 @@ Hello,
     <h1>Welcome to iEQA System for Excellent Quality Control</h1>
     {% if current_user.is_authenticated() %}
         {# You're logged in as {{ current_user.email }}. #}
-        <h3>Your organization is {{ current_user.org.name }}</h3>
+        <h3><span class="glyphicon glyphicon-home" arial-hidden="true"></span> {{ current_user.org.name }}</h3>
+        <table class='table table-hover table-bordered'>
+            <tr><td>#</td><td>Program</td><td>Date and Time</td><td>Registered</td><td></td></tr>
+        <tbody>
+            {% for test in current_user.org.tests.all() %}
+            <tr><td>{{ test.id }}</td>
+                <td>{{ test.type }}</td>
+                <td>{{ test.date }}</td>
+                {% if test.status %}
+                <td><span class="glyphicon glyphicon-ok" arial-hidden="true"></span></td>
+                {% else %}
+                <td><span class="glyphicon glyphicon-remove" arial-hidden="true"></span></td>
+                {% endif %}
+                <td><a href={{url_for("main.test", test_id=test.id)}}>
+                <span class="glyphicon glyphicon-info-sign" arial-hidden="true"></span>
+                </a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
     {% else %}
     <h2>Please sign up or <a href={{ url_for("auth.login") }}>log in.</a></h2>
     {% endif %}
