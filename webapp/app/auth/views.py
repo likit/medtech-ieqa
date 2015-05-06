@@ -1,12 +1,8 @@
 from flask import render_template, request, url_for, flash, redirect
-from flask.ext.login import login_user, login_required
+from flask.ext.login import login_user, login_required, logout_user
 from ..models import Customer
 from .forms import LoginForm
 from . import auth
-
-@auth.route('/login')
-def login():
-    return render_template('auth/login.html')
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():

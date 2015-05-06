@@ -3,9 +3,11 @@
 Hello,
 
 {% block page_content %}
+    <h1>Welcome to iEQA System for Excellent Quality Control</h1>
     {% if current_user.is_authenticated() %}
-        {{ current_user.email }}
+        {# You're logged in as {{ current_user.email }}. #}
+        <h3>Your organization is {{ current_user.org.name }}</h3>
     {% else %}
-        Stranger
+    <h2>Please sign up or <a href={{ url_for("auth.login") }}>log in.</a></h2>
     {% endif %}
 {% endblock %}

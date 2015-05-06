@@ -1,6 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask.ext.login import UserMixin
 from . import db
+from . import login_manager
 
 class Customer(UserMixin, db.Model):
     __tablename__ = 'customers'
@@ -8,6 +9,8 @@ class Customer(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True)
 
     password_hash = db.Column(db.String(128))
+
+    org_id = db.Column(db.Integer, db.ForeignKey('orgs.id'))
 
     @property
     def password(self):
@@ -24,7 +27,16 @@ class Customer(UserMixin, db.Model):
         return '<Customer:email %r>' % self.email
 
 
-from . import login_manager
+class Organization(db.Model):
+    __tablename__ = 'orgs'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(128))
+    province = db.Column(db.String(128))
+
+    customers = db.relationship('Customer', backref='org', lazy='dynamic')
+
+    def __repr__(self):
+        return '<Organization %r>' % self.name
 
 @login_manager.user_loader
 def load_user(customer_id):
