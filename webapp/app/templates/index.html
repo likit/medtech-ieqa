@@ -3,12 +3,16 @@
 Hello,
 
 {% block page_content %}
-    <h1>Welcome to iEQA System for Excellent Quality Control</h1>
+    <h1>Welcome to MUMT iEQA <small>-- An Intelligent System for Excellent Quality Control</small></h1>
     {% if current_user.is_authenticated() %}
         {# You're logged in as {{ current_user.email }}. #}
-        <h3><span class="glyphicon glyphicon-home" arial-hidden="true"></span> {{ current_user.org.name }}</h3>
-        <table class='table table-hover table-bordered'>
-            <tr><td>#</td><td>Program</td><td>Date and Time</td><td>Registered</td><td></td></tr>
+        <h3>{{ current_user.org.name }} <small>(<span class="glyphicon glyphicon-user" arial-hidden="true"></span> {{ current_user.email }})</h3>
+                <table class='table table-hover table-bordered'>
+            <tr><td>#</td>
+                <td>Program</td>
+                <td>Date and Time</td>
+                <td>Registered</td>
+                <td>Detail</td></tr>
         <tbody>
             {% for test in current_user.org.tests.all() %}
             <tr><td>{{ test.id }}</td>
