@@ -1,18 +1,13 @@
 from . import main
-from flask import render_template
-from ..models import Test
+from flask import render_template, flash
 from .forms import Result
+from flask.ext.login import login_required
 
 @main.route('/')
+@login_required
 def index():
+    flash("You're logged in successfully.")
     return render_template('index.html')
-
-@main.route('/test/<test_id>', methods=['GET', 'POST'])
-def test(test_id):
-
-    test = Test.query.filter_by(id=test_id).first()
-
-    return render_template('test.html', test=test)
 
 @main.route('/result/', methods=['GET', 'POST'])
 def result():

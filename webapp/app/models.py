@@ -1,54 +1,31 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask.ext.login import UserMixin
 from . import db
 from . import login_manager
 
-class Customer(UserMixin, db.Model):
-    __tablename__ = 'customers'
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(64), unique=True)
+class Customer():
+    def __init__(self, email):
+        self.email = email
 
-    password_hash = db.Column(db.String(128))
+    def is_active(self):
+        return True
 
-    org_id = db.Column(db.Integer, db.ForeignKey('orgs.id'))
+    def is_authenticated(self):
+        return True
 
-    @property
-    def password(self):
-        raise AttributeError('password is not a readable attribute')
+    def is_anonymous(self):
+        return False
 
-    @password.setter
-    def password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def verify_password(self, password):
-        return check_password_hash(self.password_hash, password)
+    def get_id(self):
+        return self.email
 
     def __repr__(self):
-        return '<Customer:email %r>' % self.email
-
-
-class Organization(db.Model):
-    __tablename__ = 'orgs'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(128))
-    province = db.Column(db.String(128))
-
-    customers = db.relationship('Customer', backref='org', lazy='dynamic')
-    tests = db.relationship('Test', backref='org', lazy='dynamic')
-
-    def __repr__(self):
-        return '<Organization %r>' % self.name
-
-class Test(db.Model):
-    __tablename__ = 'tests'
-    id = db.Column(db.Integer, primary_key=True)
-    type = db.Column(db.String(64))
-    date = db.Column(db.DateTime)
-    status = db.Column(db.Boolean)
-
-    org_id = db.Column(db.Integer, db.ForeignKey('orgs.id'))
+        return '<Customer: email %r>' % self.email
 
 
 @login_manager.user_loader
-def load_user(customer_id):
-    return Customer.query.get(int(customer_id))
+def load_user(email):
+    customer = db.customers.find_one({'email': email})
+    if not customer:
+        return None
+    else:
+        return Customer(customer['email'])

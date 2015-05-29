@@ -4,6 +4,7 @@ from app import create_app, db
 from app.models import Customer
 from flask.ext.script import Manager, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
+from werkzeug.security import generate_password_hash
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
@@ -18,6 +19,18 @@ def test():
     import unittest
     tests = unittest.TestLoader().discover('.')
     unittest.TextTestRunner(verbosity=2).run(tests)
+
+@manager.command
+def initdb():
+    """Init the database"""
+    db.drop_collection('customers')
+    password = generate_password_hash('testpass')
+    customer = {
+            'email': 'foo@example.com',
+            'password': password,
+            }
+
+    db.customers.insert(customer, safe=True)
 
 
 manager.add_command('shell', Shell(make_context=make_shell_context))
