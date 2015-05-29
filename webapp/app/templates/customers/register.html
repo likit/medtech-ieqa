@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} Register {% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Registeration Form</h1>
+</div>
+<div class="col-md-4">
+    <form method="POST" action="{{ url_for('customer.register') }}">
+        {{ form.hidden_tag()  }}
+        {{ form.name.label  }} {{ form.name(size=20)  }}
+        {{ form.lastname.label  }} {{ form.lastname(size=20)  }}
+        {{ form.email.label  }} {{ form.email(size=20)  }}
+        {{ form.submit }}
+    </form>
+</div>
+{% endblock %}
