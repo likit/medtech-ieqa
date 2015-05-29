@@ -8,6 +8,12 @@
     <h1>Result</h1>
 </div>
 <div class="col-md-4">
-    {{ wtf.quick_form(form) }}
+    <form method="POST" action="/">
+        {{ form.hidden_tag()  }}
+        {{ form.albumin.label  }} {{ form.albumin(size=20)  }}
+
+        {{ form.alp.label  }} {{ form.alp(size=20)  }}
+        {{ form.submit }}
+    </form>
 </div>
 {% endblock %}

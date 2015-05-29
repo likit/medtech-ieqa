@@ -12,6 +12,14 @@ migrate = Migrate(app, db)
 def make_shell_context():
     return dict(app=app, db=db, Customer=Customer)
 
+@manager.command
+def test():
+    """Run the unit tests"""
+    import unittest
+    tests = unittest.TestLoader().discover('.')
+    unittest.TextTestRunner(verbosity=2).run(tests)
+
+
 manager.add_command('shell', Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 

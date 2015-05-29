@@ -16,5 +16,7 @@ def test(test_id):
 
 @main.route('/result/', methods=['GET', 'POST'])
 def result():
-    result_form = Result()
-    return render_template('result.html', form=result_form)
+    form = Result()
+    if form.validate_on_submit():
+        flash('Success!')
+    return render_template('result.html', form=form)
