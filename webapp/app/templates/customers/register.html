@@ -7,12 +7,29 @@
 <div class="page-header">
     <h1>Registeration Form</h1>
 </div>
-<div class="col-md-4">
+<div class="col-md-12">
     <form method="POST" action="{{ url_for('customer.register') }}">
         {{ form.hidden_tag()  }}
-        {{ form.name.label  }} {{ form.name(size=20)  }}
-        {{ form.lastname.label  }} {{ form.lastname(size=20)  }}
-        {{ form.email.label  }} {{ form.email(size=20)  }}
+        <div class="panel panel-primary">
+            <div class="panel panel-heading"><h3 class="panel-title">สมัครสมาชิกเพื่อใช้งานเว็บ</h3></div>
+            <div class="panel-body">
+                <strong>ชื่อหน่วยงานที่สังกัด</strong> {{ form.org() }}
+                <strong>ไม่พบ โปรดระบุ</strong>{{ form.new_org(size=50) }}
+                <br>
+                <br>
+                <strong>ชื่อผู้สมัคร</strong> {{ form.name(size=40) }}
+                <strong>นามสกุล</strong> {{ form.lastname(size=40) }}
+                <br>
+                <br>
+                <strong>Email address</strong> {{ form.email(size=30) }}
+                <br>
+                <br>
+                <strong>Password</strong> {{ form.password(size=30) }}
+                <br>
+                <br>
+                <strong>Password อีกครั้ง</strong> {{ form.password2(size=30) }}
+            </div>
+        </div>
         {{ form.submit }}
     </form>
 </div>

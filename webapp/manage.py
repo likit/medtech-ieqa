@@ -26,8 +26,12 @@ def initdb():
     db.drop_collection('customers')
     password = generate_password_hash('testpass')
     customer = {
+            'name': 'Foo',
+            'lastname': 'Jiang',
             'email': 'foo@example.com',
             'password': password,
+            'org': None,
+            'new_org': None,
             }
 
     db.customers.insert(customer, safe=True)
