@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %} iEQA - Organizations {% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Organization List</h1>
+</div>
+<div>
+    <table class="table table-striped">
+        <tbody>
+        <tr><td>Name</td><td>Unit</td><td>Code</td></tr>
+        {% for org in db.orgs.find() %}
+        <tr>
+            <td>{{ org['name'] }}</td><td>{{ org['labname'] }}</td><td>{{ org['code'] }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

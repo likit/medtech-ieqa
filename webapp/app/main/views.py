@@ -2,6 +2,7 @@ from . import main
 from flask import render_template, flash
 from .forms import Result
 from flask.ext.login import login_required
+from .. import db
 
 @main.route('/')
 @login_required
@@ -15,3 +16,8 @@ def result():
     if form.validate_on_submit():
         flash('Success!')
     return render_template('result.html', form=form)
+
+@main.route('/orgs')
+@login_required
+def view_orgs():
+    return render_template('organization.html', db=db)
