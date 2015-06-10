@@ -150,3 +150,4 @@ class ResultForm(Form):
     uric_ = SelectField('uric_method',
             choices=[(m,m) for m in methods['uric']]
             )
+    submit = SubmitField('Submit')

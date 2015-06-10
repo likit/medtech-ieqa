@@ -7,6 +7,7 @@ from . import customer
 from .. import db
 from bson import json_util
 from werkzeug.security import generate_password_hash
+from datetime import datetime
 
 @customer.route('/register', methods=['POST', 'GET'])
 def register():
@@ -45,4 +46,39 @@ def register():
 @customer.route('/results', methods=['POST', 'GET'])
 def results():
     form = ResultForm()
+    if form.validate_on_submit():
+        new_results = {
+            'albumin' : form.albumin.data,
+            'alp' : form.alp.data,
+            'alt' : form.alt.data,
+            'ast' : form.ast.data,
+            'bun' : form.bun.data,
+            'bilirubin' : form.bilirubin.data,
+            'calcium' : form.calcium.data,
+            'chloride' : form.chloride.data,
+            'cholesterol' : form.cholesterol.data,
+            'ck' : form.ck.data,
+            'creatinine' : form.creatinine.data,
+            'ggt' : form.ggt.data,
+            'glucose' : form.glucose.data,
+            'hdl_chol' : form.hdl_chol.data,
+            'ldh' : form.ldh.data,
+            'ldl_chol' : form.ldl_chol.data,
+            'P' : form.P.data,
+            'K' : form.K.data,
+            'protein' : form.protein.data,
+            'Na' : form.Na.data,
+            'trig' : form.trig.data,
+            'uric' : form.uric.data,
+            'entered_at': datetime.now(),
+
+            # Fields below are for future use.
+            #'entered_by': user.name
+            #'edited_at': datetime.now()
+            #'program_id': program_id
+            #'result_id': get_result_id()
+        }
+
+        db.results.insert(new_results, safe=True)
+        return redirect(url_for('auth.login'))
     return render_template('/customers/results.html', form=form)

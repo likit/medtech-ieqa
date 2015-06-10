@@ -56,23 +56,6 @@
                         <td>{{ form.bilirubin_() }}</td>
                         <td>{{ form.bilirubin() }}</td>
                         <td>mg/dL</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="panel panel-primary">
-            <div class="panel panel-heading"><h3 class="panel-title">Electrolytes</h3></div>
-            <div class="panel-body">
-                <table class="table table-hover">
-                    <tr>
-                        <td><strong>Test</strong></td>
-                        <td><strong>Principle/Method/Instrument</strong></td>
-                        <td><strong>Result</strong></td>
-                        <td><strong>Unit</strong></td>
-                    </tr>
-                    <tbody>
                     <tr>
                         <td>{{ form.calcium.label }}</td>
                         <td>{{ form.calcium_() }}</td>
@@ -84,6 +67,12 @@
                         <td>{{ form.chloride_() }}</td>
                         <td>{{ form.chloride() }}</td>
                         <td>mmol/L</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.cholesterol.label }}</td>
+                        <td>{{ form.cholesterol_() }}</td>
+                        <td>{{ form.cholesterol() }}</td>
+                        <td>mg/dL</td>
                     </tr>
                     <tr>
                         <td>{{ form.ck.label }}</td>
@@ -104,6 +93,30 @@
                         <td>U/L</td>
                     </tr>
                     <tr>
+                        <td>{{ form.glucose.label }}</td>
+                        <td>{{ form.glucose_() }}</td>
+                        <td>{{ form.glucose() }}</td>
+                        <td>mg/dL</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.hdl_chol.label }}</td>
+                        <td>{{ form.hdl_chol_() }}</td>
+                        <td>{{ form.hdl_chol() }}</td>
+                        <td>mg/dL</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.ldh.label }}</td>
+                        <td>{{ form.ldh_() }}</td>
+                        <td>{{ form.ldh() }}</td>
+                        <td>U/L</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.ldl_chol.label }}</td>
+                        <td>{{ form.ldl_chol_() }}</td>
+                        <td>{{ form.ldl_chol() }}</td>
+                        <td>mg/dL</td>
+                    </tr>
+                    <tr>
                         <td>{{ form.P.label }}</td>
                         <td>{{ form.P_() }}</td>
                         <td>{{ form.P() }}</td>
@@ -116,61 +129,16 @@
                         <td>mmol/L</td>
                     </tr>
                     <tr>
-                        <td>{{ form.Na.label }}</td>
-                        <td>{{ form.Na_() }}</td>
-                        <td>{{ form.Na() }}</td>
-                        <td>mmol/L</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="panel panel-primary">
-            <div class="panel panel-heading"><h3 class="panel-title">Metabolites</h3></div>
-            <div class="panel-body">
-                <table class="table table-hover">
-                    <tr>
-                        <td><strong>Test</strong></td>
-                        <td><strong>Principle/Method/Instrument</strong></td>
-                        <td><strong>Result</strong></td>
-                        <td><strong>Unit</strong></td>
-                    </tr>
-                    <tbody>
-                    <tr>
-                        <td>{{ form.glucose.label }}</td>
-                        <td>{{ form.glucose_() }}</td>
-                        <td>{{ form.glucose() }}</td>
-                        <td>mg/dL</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form.cholesterol.label }}</td>
-                        <td>{{ form.cholesterol_() }}</td>
-                        <td>{{ form.cholesterol() }}</td>
-                        <td>mg/dL</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form.hdl_chol.label }}</td>
-                        <td>{{ form.hdl_chol_() }}</td>
-                        <td>{{ form.hdl_chol() }}</td>
-                        <td>mg/dL</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form.ldl_chol.label }}</td>
-                        <td>{{ form.ldl_chol_() }}</td>
-                        <td>{{ form.ldl_chol() }}</td>
-                        <td>mg/dL</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form.ldh.label }}</td>
-                        <td>{{ form.ldh_() }}</td>
-                        <td>{{ form.ldh() }}</td>
-                        <td>U/L</td>
-                    </tr>
-                    <tr>
                         <td>{{ form.protein.label }}</td>
                         <td>{{ form.protein_() }}</td>
                         <td>{{ form.protein() }}</td>
                         <td>g/dL</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form.Na.label }}</td>
+                        <td>{{ form.Na_() }}</td>
+                        <td>{{ form.Na() }}</td>
+                        <td>mmol/L</td>
                     </tr>
                     <tr>
                         <td>{{ form.trig.label }}</td>
