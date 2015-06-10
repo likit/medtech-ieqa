@@ -2,7 +2,7 @@
 
 from flask import render_template, redirect, url_for
 from flask.ext.login import current_user, logout_user
-from .forms import RegisterForm
+from .forms import RegisterForm, ResultForm
 from . import customer
 from .. import db
 from bson import json_util
@@ -41,3 +41,8 @@ def register():
     return render_template('/customers/register.html',
             form=form,
             orgs = json_util.dumps(orgs))
+
+@customer.route('/results', methods=['POST', 'GET'])
+def results():
+    form = ResultForm()
+    return render_template('/customers/results.html', form=form)
