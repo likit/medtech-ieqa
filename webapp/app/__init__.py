@@ -3,6 +3,7 @@ from flask.ext.bootstrap import Bootstrap
 # from flask.mail import Mail
 from flask.ext.login import LoginManager
 from config import config
+from flask_admin import Admin
 import pymongo
 
 bootstrap = Bootstrap()
@@ -23,6 +24,14 @@ def create_app(config_name):
     bootstrap.init_app(app)
 
     login_manager.init_app(app)
+
+    from adminpage.views import MyAdminIndexView, HomeView
+    admin = Admin(name="My Admin",
+            index_view=MyAdminIndexView(endpoint='admin'))
+
+    admin.add_view(HomeView(name='App Home'))
+
+    admin.init_app(app)
 
     # attach routes and custom error pages here
     from main import main as main_blueprint
