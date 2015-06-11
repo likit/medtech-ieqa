@@ -25,6 +25,8 @@ def initdb():
     """Init the database"""
     mongo.db.drop_collection('customers')
     mongo.db.drop_collection('admins')
+    mongo.db.drop_collection('results')
+    mongo.db.drop_collection('result_ids')
     password = generate_password_hash('testpass')
     customer = {
             'name': 'Foo',

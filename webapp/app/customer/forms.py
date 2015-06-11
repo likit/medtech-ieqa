@@ -1,7 +1,8 @@
 from flask.ext.wtf import Form
 from wtforms import (StringField, SubmitField, FloatField,
-                        IntegerField, SelectField, PasswordField)
-from wtforms.validators import Required, Email, Length, EqualTo
+                        TextField, SelectField, PasswordField)
+from wtforms.validators import (Required, Email,
+                                    Length, EqualTo, Optional)
 
 class RegisterForm(Form):
     org = SelectField('org', validators=[Required()])
@@ -16,6 +17,9 @@ class RegisterForm(Form):
 
 
 class ResultForm(Form):
+    program_id = StringField('Program ID', validators=[Required()])
+    comment = TextField('Comment', validators=[Optional()])
+
     albumin = FloatField('Albumin')
     alp = FloatField('ALP')
     alt = FloatField('ALT (SGPT)')
