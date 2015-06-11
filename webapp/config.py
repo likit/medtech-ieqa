@@ -16,17 +16,18 @@ class DevelopmentConfig(Config):
     DEBUG = True
     #TODO: add email info
 
-    MONGO_DBNAME = 'data-dev'
-
+    MONGO_DBNAME = 'ieqa-dev'
+    MONGO_HOST = '128.199.148.69'
+    MONGO_PORT = 27017
 
 class TestingConfig(Config):
     TESTING = True
     WTF_CSRF_ENABLED = False
-    MONGO_DBNAME = 'data-test'
+    MONGO_DBNAME = 'ieqa-test'
 
 
 class ProductionConfig(Config):
-    MONGO_DBNAME = 'data'
+    MONGO_DBNAME = 'ieqa-data'
 
 config = {
         'development': DevelopmentConfig,
