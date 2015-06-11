@@ -5,7 +5,7 @@ from flask.ext.login import current_user, login_user
 from flask import redirect, url_for, render_template, flash, request
 from werkzeug.security import check_password_hash
 from .forms import AdminLoginForm
-from .. import db
+from .. import mongo
 from ..models import Customer
 
 class MyAdminIndexView(AdminIndexView):
@@ -23,7 +23,7 @@ class MyAdminIndexView(AdminIndexView):
     def login_view(self):
         form = AdminLoginForm()
         if form.validate_on_submit():
-            admin = db.admins.find_one({'email': form.email.data})
+            admin = mongo.db.admins.find_one({'email': form.email.data})
             if admin is not None and check_password_hash(admin['password'],
                     form.password.data):
                 admin = Customer(admin['email'])

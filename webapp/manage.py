@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import os
-from app import create_app, db
+from app import create_app, mongo
 from app.models import Customer
 from flask.ext.script import Manager, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
@@ -8,10 +8,10 @@ from werkzeug.security import generate_password_hash
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
-migrate = Migrate(app, db)
+# migrate = Migrate(app, db)
 
 def make_shell_context():
-    return dict(app=app, db=db, Customer=Customer)
+    return dict(app=app, db=mongo.db, Customer=Customer)
 
 @manager.command
 def test():
@@ -23,8 +23,8 @@ def test():
 @manager.command
 def initdb():
     """Init the database"""
-    db.drop_collection('customers')
-    db.drop_collection('admin')
+    mongo.db.drop_collection('customers')
+    mongo.db.drop_collection('admins')
     password = generate_password_hash('testpass')
     customer = {
             'name': 'Foo',
@@ -40,8 +40,8 @@ def initdb():
             'password': password,
             }
 
-    db.admins.insert(admin, safe=True)
-    db.customers.insert(customer, safe=True)
+    mongo.db.admins.insert(admin, safe=True)
+    mongo.db.customers.insert(customer, safe=True)
 
 
 manager.add_command('shell', Shell(make_context=make_shell_context))

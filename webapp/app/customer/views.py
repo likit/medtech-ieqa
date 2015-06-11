@@ -4,7 +4,7 @@ from flask import render_template, redirect, url_for
 from flask.ext.login import current_user, logout_user
 from .forms import RegisterForm, ResultForm
 from . import customer
-from .. import db
+from .. import mongo
 from bson import json_util
 from werkzeug.security import generate_password_hash
 from datetime import datetime
@@ -17,7 +17,7 @@ def register():
     form = RegisterForm()
     form.org.choices = [('', u'โปรดเลือก')] +\
             sorted([(x.get('name'), x.get('name'))
-                for x in db.orgs.find()], key=lambda x: x[0])
+                for x in mongo.db.orgs.find()], key=lambda x: x[0])
 
     orgs = [x[0] for x in form.org.choices]
 
@@ -36,7 +36,7 @@ def register():
                 'email': form.email.data,
                 }
 
-        db.customers.insert(new_customer, safe=True)
+        mongo.db.customers.insert(new_customer, safe=True)
         return redirect(url_for('auth.login'))
 
     return render_template('/customers/register.html',
@@ -79,6 +79,6 @@ def results():
             #'result_id': get_result_id()
         }
 
-        db.results.insert(new_results, safe=True)
+        mongo.db.results.insert(new_results, safe=True)
         return redirect(url_for('auth.login'))
     return render_template('/customers/results.html', form=form)

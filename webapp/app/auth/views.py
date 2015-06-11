@@ -7,7 +7,7 @@ from flask.ext.login import login_user, login_required, logout_user
 from ..models import Customer
 from .forms import LoginForm
 from . import auth
-from .. import db
+from .. import mongo
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -17,7 +17,7 @@ def login():
         redirect(url_for('main.index'))
 
     if form.validate_on_submit():
-        customer = db.customers.find_one({'email': form.email.data})
+        customer = mongo.db.customers.find_one({'email': form.email.data})
         if customer is not None and check_password_hash(customer['password'],
                 form.password.data):
             # login_user(customer, form.remember_me.data)

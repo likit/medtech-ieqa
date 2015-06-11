@@ -2,7 +2,7 @@ from . import main
 from flask import render_template, flash
 from .forms import Result
 from flask.ext.login import login_required
-from .. import db
+from .. import mongo
 
 @main.route('/')
 @login_required
@@ -20,4 +20,4 @@ def result():
 @main.route('/orgs')
 @login_required
 def view_orgs():
-    return render_template('organization.html', db=db)
+    return render_template('organization.html', db=mongo.db)

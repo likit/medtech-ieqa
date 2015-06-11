@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import db
+from . import mongo
 from . import login_manager
 
 class Customer():
@@ -24,11 +24,11 @@ class Customer():
 
 @login_manager.user_loader
 def load_user(email):
-    customer = db.customers.find_one({'email': email})
+    customer = mongo.db.customers.find_one({'email': email})
 
     # if no users found, try searching in admin db
     if not customer:
-        admin = db.admins.find_one({'email': email})
+        admin = mongo.db.admins.find_one({'email': email})
         if not admin:
             return None
         else:

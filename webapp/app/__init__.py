@@ -4,22 +4,22 @@ from flask.ext.bootstrap import Bootstrap
 from flask.ext.login import LoginManager
 from config import config
 from flask_admin import Admin
-import pymongo
+from flask.ext.pymongo import PyMongo
 
 bootstrap = Bootstrap()
-
-conn = pymongo.Connection()
-
-db = conn['data-dev']
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
+mongo = PyMongo()
 
 def create_app(config_name):
+
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
+
+    mongo.init_app(app)
 
     bootstrap.init_app(app)
 
