@@ -19,17 +19,19 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
 
+    bootstrap.init_app(app)
+    login_manager.init_app(app)
     mongo.init_app(app)
 
-    bootstrap.init_app(app)
-
-    login_manager.init_app(app)
-
-    from adminpage.views import MyAdminIndexView, HomeView
+    from adminpage.views import (MyAdminIndexView, HomeView,
+                                            AdminResult1View)
     admin = Admin(name="My Admin",
             index_view=MyAdminIndexView(endpoint='admin'))
 
     admin.add_view(HomeView(name='App Home'))
+    with app.app_context():
+        admin.add_view(AdminResult1View(mongo.db.results,
+                            name='Result1'))
 
     admin.init_app(app)
 

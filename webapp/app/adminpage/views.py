@@ -1,12 +1,27 @@
-from flask_admin.contrib.pymongo import ModelView
 from flask_admin import AdminIndexView, expose, BaseView
 from wtforms import form, fields
 from flask.ext.login import current_user, login_user
 from flask import redirect, url_for, render_template, flash, request
 from werkzeug.security import check_password_hash
 from .forms import AdminLoginForm
+from ..customer.forms import ResultForm
 from .. import mongo
 from ..models import Customer
+from flask_admin.contrib.pymongo import ModelView
+
+class AdminResult1View(ModelView):
+    can_create = False
+    column_list = ('program_id', 'result_id', 'entered_by', 'entered_at')
+    column_sortable_list = ('program_id', 'result_id', 'entered_by', 'entered_at')
+    form_columns = ('program_id', 'albumin', 'albumin_', 'uric', 'uric_')
+    form = ResultForm
+    # form_create_rules = ('program_id', 'albumin', 'albumin_', 'uric', 'uric_')
+
+    def is_accessible(self):
+        # user = mongo.db.admins.find_one({'email': current_user.email})
+        if current_user.is_authenticated():
+            return True
+
 
 class MyAdminIndexView(AdminIndexView):
     @expose('/')
