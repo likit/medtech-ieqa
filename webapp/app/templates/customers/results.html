@@ -3,6 +3,12 @@
 
 {% block title %} Enter Results {% endblock %}
 
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename="jquery-2.1.4.min.js") }}"></script>
+<script src="{{ url_for('static', filename="js/chem-result-1.js") }}"></script>
+{% endblock %}
+
 {% block page_content %}
 <div class="page-header">
     <h1>Results Form EQAC.1</h1>
@@ -11,13 +17,13 @@
     <form method="POST" action="{{ url_for('customer.results') }}">
         {{ form.hidden_tag()  }}
         <div class="panel panel-primary">
-            <div class="panel panel-heading"><h3 class="panel-title">Liver Function Tests</h3></div>
+            <div class="panel panel-heading"><h3 class="panel-title">Temp Section</h3></div>
             <div class="panel-body">
                 <strong>{{ form.program_id.label }}</strong> {{ form.program_id(size=20) }}
             </div>
         </div>
         <div class="panel panel-primary">
-            <div class="panel panel-heading"><h3 class="panel-title">Liver Function Tests</h3></div>
+            <div class="panel panel-heading"><h3 class="panel-title">All Tests</h3></div>
             <div class="panel-body">
                 <table class="table table-hover">
                     <tr>
@@ -27,132 +33,132 @@
                         <td><strong>Unit</strong></td>
                     </tr>
                     <tbody>
-                    <tr>
+                    <tr id="albumin-row">
                         <td>{{ form.albumin.label }}</td>
                         <td>{{ form.albumin_() }}</td>
                         <td>{{ form.albumin() }}</td>
                         <td>g/dL</td>
                     </tr>
-                    <tr>
+                    <tr id="alp-row">
                         <td>{{ form.alp.label }}</td>
                         <td>{{ form.alp_() }}</td>
                         <td>{{ form.alp() }}</td>
                         <td>U/L</td>
                     </tr>
-                    <tr>
+                    <tr id='alt-row'>
                         <td>{{ form.alt.label }}</td>
                         <td>{{ form.alt_() }}</td>
                         <td>{{ form.alt() }}</td>
                         <td>U/L</td>
                     </tr>
-                    <tr>
+                    <tr id='ast-row'>
                         <td>{{ form.ast.label }}</td>
                         <td>{{ form.ast_() }}</td>
                         <td>{{ form.ast() }}</td>
                         <td>U/L</td>
                     </tr>
-                    <tr>
+                    <tr id='bun-row'>
                         <td>{{ form.bun.label }}</td>
                         <td>{{ form.bun_() }}</td>
                         <td>{{ form.bun() }}</td>
                         <td>mg/dL</td>
                     </tr>
-                    <tr>
+                    <tr id='bilirubin-row'>
                         <td>{{ form.bilirubin.label }}</td>
                         <td>{{ form.bilirubin_() }}</td>
                         <td>{{ form.bilirubin() }}</td>
                         <td>mg/dL</td>
-                    <tr>
+                    <tr id='calcium-row'>
                         <td>{{ form.calcium.label }}</td>
                         <td>{{ form.calcium_() }}</td>
                         <td>{{ form.calcium() }}</td>
                         <td>mg/dL</td>
                     </tr>
-                    <tr>
+                    <tr id='chloride-row'>
                         <td>{{ form.chloride.label }}</td>
                         <td>{{ form.chloride_() }}</td>
                         <td>{{ form.chloride() }}</td>
                         <td>mmol/L</td>
                     </tr>
-                    <tr>
+                    <tr id='cholesterol-row'>
                         <td>{{ form.cholesterol.label }}</td>
                         <td>{{ form.cholesterol_() }}</td>
                         <td>{{ form.cholesterol() }}</td>
                         <td>mg/dL</td>
                     </tr>
-                    <tr>
+                    <tr id='ck-row'>
                         <td>{{ form.ck.label }}</td>
                         <td>{{ form.ck_() }}</td>
                         <td>{{ form.ck() }}</td>
                         <td>U/L</td>
                     </tr>
-                    <tr>
+                    <tr id='creatinine-row'>
                         <td>{{ form.creatinine.label }}</td>
                         <td>{{ form.creatinine_() }}</td>
                         <td>{{ form.creatinine() }}</td>
                         <td>mg/dL</td>
                     </tr>
-                    <tr>
+                    <tr id='ggt-row'>
                         <td>{{ form.ggt.label }}</td>
                         <td>{{ form.ggt_() }}</td>
                         <td>{{ form.ggt() }}</td>
                         <td>U/L</td>
                     </tr>
-                    <tr>
+                    <tr id='glucose-row'>
                         <td>{{ form.glucose.label }}</td>
                         <td>{{ form.glucose_() }}</td>
                         <td>{{ form.glucose() }}</td>
                         <td>mg/dL</td>
                     </tr>
-                    <tr>
+                    <tr id='hdl_chol-row'>
                         <td>{{ form.hdl_chol.label }}</td>
                         <td>{{ form.hdl_chol_() }}</td>
                         <td>{{ form.hdl_chol() }}</td>
                         <td>mg/dL</td>
                     </tr>
-                    <tr>
+                    <tr id='ldh-row'>
                         <td>{{ form.ldh.label }}</td>
                         <td>{{ form.ldh_() }}</td>
                         <td>{{ form.ldh() }}</td>
                         <td>U/L</td>
                     </tr>
-                    <tr>
+                    <tr id='ldl_chol-row'>
                         <td>{{ form.ldl_chol.label }}</td>
                         <td>{{ form.ldl_chol_() }}</td>
                         <td>{{ form.ldl_chol() }}</td>
                         <td>mg/dL</td>
                     </tr>
-                    <tr>
+                    <tr id='P-row'>
                         <td>{{ form.P.label }}</td>
                         <td>{{ form.P_() }}</td>
                         <td>{{ form.P() }}</td>
                         <td>mg/dL</td>
                     </tr>
-                    <tr>
+                    <tr id='K-row'>
                         <td>{{ form.K.label }}</td>
                         <td>{{ form.K_() }}</td>
                         <td>{{ form.K() }}</td>
                         <td>mmol/L</td>
                     </tr>
-                    <tr>
+                    <tr id='protein-row'>
                         <td>{{ form.protein.label }}</td>
                         <td>{{ form.protein_() }}</td>
                         <td>{{ form.protein() }}</td>
                         <td>g/dL</td>
                     </tr>
-                    <tr>
+                    <tr id='Na-row'>
                         <td>{{ form.Na.label }}</td>
                         <td>{{ form.Na_() }}</td>
                         <td>{{ form.Na() }}</td>
                         <td>mmol/L</td>
                     </tr>
-                    <tr>
+                    <tr id='trig-row'>
                         <td>{{ form.trig.label }}</td>
                         <td>{{ form.trig_() }}</td>
                         <td>{{ form.trig() }}</td>
                         <td>mg/dL</td>
                     </tr>
-                    <tr>
+                    <tr id='uric-row'>
                         <td>{{ form.uric.label }}</td>
                         <td>{{ form.uric_() }}</td>
                         <td>{{ form.uric() }}</td>
