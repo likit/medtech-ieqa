@@ -8,4 +8,12 @@ $(function() {
             }
         });
     });
+    $('#form input, select').each(function(idx) {
+        $(this).on('focus', function() {
+            $(this).parents("tr").addClass('info');
+        });
+        $(this).on('blur', function() {
+            $(this).parents("tr").removeClass('info');
+        });
+    });
 });
