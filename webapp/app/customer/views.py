@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, jsonify, request
 from flask.ext.login import current_user, logout_user
 from .forms import RegisterForm, ResultForm
 from . import customer
@@ -10,17 +10,21 @@ from werkzeug.security import generate_password_hash
 from datetime import datetime
 from ..models import get_result_id
 
+@customer.route('/getlabs')
+def get_labname():
+    org = request.args.get('org', 'unknown')
+    labs = [o['labname']
+            if o else '' for o in mongo.db.orgs.find({'name': org})]
+    return jsonify(labs=labs)
+
 @customer.route('/register', methods=['POST', 'GET'])
 def register():
     if current_user.is_authenticated():
         logout_user()
 
     form = RegisterForm()
-    form.org.choices = [('', u'โปรดเลือก')] +\
-            sorted([(x.get('name'), x.get('name'))
-                for x in mongo.db.orgs.find()], key=lambda x: x[0])
-
-    orgs = [x[0] for x in form.org.choices]
+    orgs = {'source': sorted([x.get('name')
+                    for x in mongo.db.orgs.find()], key=lambda x: x[0])}
 
     if form.validate_on_submit():
         if form.org.data != '':
@@ -42,7 +46,7 @@ def register():
 
     return render_template('/customers/register.html',
             form=form,
-            orgs = json_util.dumps(orgs))
+            orgs=orgs)
 
 @customer.route('/results_1', methods=['POST', 'GET'])
 def results():

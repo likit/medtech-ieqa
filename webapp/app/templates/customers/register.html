@@ -3,6 +3,47 @@
 
 {% block title %} Register {% endblock %}
 
+{% block scripts %}
+{{ super() }}
+<script type="text/javascript">
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }}
+
+    $(document).ready(function() {
+            $('#addlab').on('focus', function() {
+                if($('#labs').val().length == 0) {
+                    $('#addlab').prop('disabled', false);
+                } else {
+                    $('#addlab').prop('disabled', true);
+                }
+            });
+
+            $('#org').autocomplete({{ orgs|tojson|safe }});
+            $('#org').on('autocompleteselect', function(event, ui) {
+                $('#org').val(ui.item.value);
+                event.preventDefault();
+
+                $('#labs option').each(function() { $(this).remove() });
+
+                $.getJSON($SCRIPT_ROOT + '/customer/getlabs', {
+                    org: $('#org').val()
+                },
+                function(data) {
+                data.labs.map(function(item) {
+                    $('#labs').append('<option value=' + item + '>' + item + '</option>')
+                    })
+                });
+
+                {# $('#labs').val($('#labs option').eq(0).val()); #}
+
+                {# if($('#labs').val().length == 0) { #}
+                {#     $('#addlab').prop('disabled', false); #}
+                {# } else { #}
+                {#     $('#addlab').prop('disabled', true); #}
+                {# } #}
+            });
+    });
+</script>
+{% endblock %}
 {% block page_content %}
 <div class="page-header">
     <h1>Registeration Form</h1>
@@ -13,21 +54,26 @@
         <div class="panel panel-primary">
             <div class="panel panel-heading"><h3 class="panel-title">สมัครสมาชิกเพื่อใช้งานเว็บ</h3></div>
             <div class="panel-body">
-                <strong>ชื่อหน่วยงานที่สังกัด</strong> {{ form.org() }}
-                <strong>ไม่พบ โปรดระบุ</strong>{{ form.new_org(size=50) }}
-                <br>
-                <br>
-                <strong>ชื่อผู้สมัคร</strong> {{ form.name(size=40) }}
-                <strong>นามสกุล</strong> {{ form.lastname(size=40) }}
-                <br>
-                <br>
-                <strong>Email address</strong> {{ form.email(size=30) }}
-                <br>
-                <br>
-                <strong>Password</strong> {{ form.password(size=30) }}
-                <br>
-                <br>
-                <strong>Password อีกครั้ง</strong> {{ form.password2(size=30) }}
+                <strong>ชื่อหน่วยงานที่สังกัด</strong> {{ form.org(size=50) }} <small>(กรุณาพิมพ์ชื่อเพื่อค้นหา)</small>
+                <br/>
+                <br/>
+                <strong>Labs</strong> {{ form.labs() }}
+                <br/>
+                <br/>
+                <strong>กรุณาใส่ชื้อแลบ</strong> {{ form.addlab() }}
+                <br/>
+                <br/>
+                <strong>ชื่อผู้สมัคร</strong> {{ form.name(size=30) }}
+                <strong>นามสกุล</strong> {{ form.lastname(size=30) }}
+                <br/>
+                <br/>
+                <strong>อีเมล</strong> {{ form.email(size=30) }}
+                <br/>
+                <br/>
+                <strong>รหัสผ่าน</strong> {{ form.password(size=30) }}
+                <br/>
+                <br/>
+                <strong>รหัสผ่าน อีกครั้ง</strong> {{ form.password2(size=30) }}
             </div>
         </div>
         {{ form.submit }}

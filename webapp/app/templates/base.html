@@ -1,9 +1,20 @@
 {% extends "bootstrap/base.html" %}
 
-{% block script %}
+{% block metas %}
 {{ super() }}
-{{ moment.include_moment() }}
+<meta charset="utf-8">
+{% endblock %}
+{% block scripts %}
+{{ super() }}
 <script src="{{ url_for('static', filename="jquery-2.1.4.min.js") }}"></script>
+<script src="{{ url_for('static', filename="jquery-ui/jquery-ui.min.js") }}"></script>
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui/jquery-ui.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui/jquery-ui.structure.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui/jquery-ui.theme.css') }}">
 {% endblock %}
 
 {% block title %}iEQA App{% endblock %}

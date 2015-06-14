@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 from flask.ext.wtf import Form
 from wtforms import (StringField, SubmitField, FloatField,
                         TextField, SelectField, PasswordField)
@@ -5,9 +7,11 @@ from wtforms.validators import (Required, Email,
                                     Length, EqualTo, Optional)
 
 class RegisterForm(Form):
-    org = SelectField('org', validators=[Required()])
-    new_org = StringField('new_org')
+    org = StringField('org', validators=[Required()])
     name = StringField('name', validators=[Required()])
+    labs = SelectField('labs', choices=[('', u'โปรดกรอกชื่อหน่วยงาน')],
+            validators=[Required()])
+    addlab = StringField('addlab', validators=[Required()])
     lastname = StringField('lastname', validators=[Required()])
     email = StringField('email', validators=[Required(), Email()])
     password = PasswordField('password',
