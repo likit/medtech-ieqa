@@ -4,13 +4,14 @@ import pandas as pd
 import sys
 from numpy import isnan
 import pymongo
+import os
 
 conn = pymongo.Connection()
-db = conn['data-dev']
+db = conn[os.getenv('MONGO_DBNAME')]
 
 db.drop_collection('orgs')
 
-df = pd.read_excel('/Users/Likit/Downloads/member-EQA-MUMT.xlsx',
+df = pd.read_excel('member-EQA-MUMT.xlsx',
         2, parse_cols=[1,2,3], na_values='', header=None)
 
 for row in df.iterrows():
