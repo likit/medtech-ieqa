@@ -9,6 +9,7 @@ from bson import json_util
 from werkzeug.security import generate_password_hash
 from datetime import datetime
 from ..models import get_result_id
+import numpy as np
 
 @customer.route('/getlabs')
 def get_labname():
@@ -116,3 +117,79 @@ def results():
                 % str(result_id))
         return redirect(url_for('.results'))
     return render_template('/customers/results.html', form=form)
+
+@customer.route('/report/<progid>')
+def report(progid):
+    # test_methods = set()
+    # for r in mongo.db.results.find():
+    #     if r[test_method]:
+    #         test_methods.add(r[test_method])
+
+    # test_values = {}
+    # for m in test_methods:
+    #     tests = []
+    #     for r in mongo.db.results.find({test_method: m}):
+    #         if r[test_name]:
+    #             tests.append(r[test_name])
+    #     test_values[m] = tests
+
+    # all_methods = []
+
+    def calculate(values, sd_range):
+        mean = np.mean(values)
+        std = np.std(values)
+        N = len(values)
+        CV = std/mean * 100.0
+        upper = mean + sd_range * std
+        lower = mean - sd_range * std
+        return {'mean': mean,
+                'std': std,
+                'N': N,
+                'CV': CV,
+                'upper': upper,
+                'lower': lower,
+                'test_name': test_name}
+
+
+    # def filter_values(values, sd_range):
+    #     """Returns values within std range"""
+    #     mean = np.mean(values)
+    #     std = np.std(values)
+    #     upper = mean + (sd_range * std)
+    #     lower = mean - (sd_range * std)
+    #     filtered_values = []
+    #     for val in values:
+    #         if upper >= val >= lower:
+    #             filtered_values.append(val)
+
+    #     return filtered_values
+
+
+    # for m in test_methods:
+    #     calculate(test_values[m], m, 1.5)
+    #     all_methods += test_values[m]
+
+    # principle = "All"
+    values = []
+    test_name = 'glucose'
+    for r in mongo.db.results.find():
+        val = r[test_name]
+        #TODO: rewrite this line to honor 0
+        if val:
+            values.append(val)
+
+
+    stats = calculate(values, 1.5)
+    cust_res = mongo.db.results.find_one({'program_id': progid})
+    cust_gluc = cust_res['glucose']
+    print stats
+
+    # for m in test_methods:
+    #     filtered_values = filter_values(test_values[m], 3)
+    #     calculate(filtered_values, 'New ' + m, 1.5)
+
+    # filtered_values = filter_values(all_methods, 3)
+    # calculate(filtered_values, 'New all', 1.5)
+
+    return render_template('/customers/report.html', stats=stats,
+            cust_gluc=cust_gluc)

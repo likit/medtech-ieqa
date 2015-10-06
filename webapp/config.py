@@ -17,7 +17,8 @@ class DevelopmentConfig(Config):
     #TODO: add email info
 
     MONGO_DBNAME = 'ieqa-dev'
-    MONGO_HOST = '128.199.148.69'
+    # MONGO_HOST = '128.199.148.69'
+    MONGO_HOST = 'localhost'
     MONGO_PORT = 27017
 
 class TestingConfig(Config):
