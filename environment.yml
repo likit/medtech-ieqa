@@ -15,7 +15,6 @@ dependencies:
 - pyparsing=2.0.3=py27_0
 - python=2.7.10=0
 - python-dateutil=2.4.2=py27_0
-- python.app=1.2=py27_3
 - pytz=2015.4=py27_0
 - readline=6.2=2
 - setuptools=17.0=py27_0
