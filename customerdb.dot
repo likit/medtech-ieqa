@@ -8,6 +8,10 @@ digraph G {
     "health_region_table" [shape="record" label="Health Region|<f1>ID (pri,auto)"];
     "geo_region_table" [shape="record" label="Geo Region|<f1>ID (pri,auto)|Name"];
 
+    "lab_table" [shape="record" label="Lab|ID (pri,auto)|Name|Hospital ID|Address ID|Lab Head|QC Head|Cycle"]
+    "contact_table" [shape="record" label="Contact|<f1>ID (pri,auto)|Firstname|Lastname|Phone|Fax|Email"]
+    "program_table" [shape="record" label="Program|ID (pri,auto)|Name|Code|<f4>Contact ID"];
+
     "address_table":f3 -> "district_table":f1;
     "address_table":f4 -> "amphur_table":f1;
     "address_table":f5 -> "province_table":f1;
@@ -19,4 +23,6 @@ digraph G {
 
     "province_table":f3 -> "health_region_table":f1;
     "province_table":f4 -> "geo_region_table":f1;
+
+    "program_table":f4 -> "contact_table":f1;
 }
