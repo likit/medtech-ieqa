@@ -1,0 +1,16 @@
+digraph G {
+    graph [rankdir = "LR"];
+    "hospital_table" [shape = "record" label = "Hospital|ID (pri,auto)|name|<f3>Address ID"];
+    "address_table" [shape = "record" label="Address|<f1>ID (pri,auto)|Street\nNumber|<f3>District ID|<f4>Amphur ID|<f5>Province ID"];
+    "province_table" [shape = "record" label="Province|<f1>ID (pri,auto)|Name|Region ID"];
+    "amphur_table" [shape="record" label="Amphur|<f1>ID (pri,auto)|Name|<f3>Province ID|ZIP"];
+    "district_table" [shape="record" label="District|<f1>ID (pri,auto)|Name|<f3>Amphur ID"];
+    "address_table":f3 -> "district_table":f1;
+    "address_table":f4 -> "amphur_table":f1;
+    "address_table":f5 -> "province_table":f1;
+
+    "hospital_table":f3 -> "address_table":f1;
+
+    "amphur_table":f3 -> "province_table":f1;
+    "district_table":f3 -> "amphur_table":f1;
+}
