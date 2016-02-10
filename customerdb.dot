@@ -8,9 +8,17 @@ digraph G {
     "health_region_table" [shape="record" label="Health Region|<f1>ID (pri,auto)"];
     "geo_region_table" [shape="record" label="Geo Region|<f1>ID (pri,auto)|Name"];
 
-    "lab_table" [shape="record" label="Lab|ID (pri,auto)|Name|Hospital ID|Address ID|Lab Head|QC Head|Cycle"]
-    "contact_table" [shape="record" label="Contact|<f1>ID (pri,auto)|Firstname|Lastname|Phone|Fax|Email"]
-    "program_table" [shape="record" label="Program|ID (pri,auto)|Name|Code|<f4>Contact ID"];
+    "lab_table" [shape="record" label="Lab|<f1>ID (pri,auto)|Name|Hospital ID|Address ID|Lab Head|QC Head"];
+    "contact_table" [shape="record" label="Contact|<f1>ID (pri,auto)|Firstname|Lastname|Phone|Fax|Email"];
+    "program_table" [shape="record" label="Program|<f1>ID (pri,auto)|<f2>QA ID|<f3>Code|<f4>Lab ID"];
+
+    "cycle_table" [shape="record" label="Cycle|<f1>ID (pri,auto)|Start date|End date"];
+    "report_table" [shape="record" label="Report|<f1>ID (pri,auto)|<f2>Program ID|<f3>Cycle ID|<f4>Trial Code|<f5>Contact ID|<f6>Result ID|Receive Date|Report Date|Analyze Date|<f10>Reported By ID"];
+    "trial_desc_table" [shape="record" label="Trial Desc|<f1>ID (pri,auto)|<f2>Code|<f3>Cycle ID|Start Date|End Date|Due Date"];
+    "qa_table" [shape="record" label="QA|<f1>ID (pri,auto)|Name"]
+
+    "chem_result_table" [shape="record" label="Chem Result|<f1>ID (pri,auto)|Glucose|..."];
+    "hemato_result_table" [shape="record" label="Hemato Result|<f1>ID (pri,auto)|WBC|..."];
 
     "address_table":f3 -> "district_table":f1;
     "address_table":f4 -> "amphur_table":f1;
@@ -24,5 +32,14 @@ digraph G {
     "province_table":f3 -> "health_region_table":f1;
     "province_table":f4 -> "geo_region_table":f1;
 
-    "program_table":f4 -> "contact_table":f1;
+    "report_table":f3 -> "cycle_table":f1
+    "report_table":f4 -> "trial_desc_table":f2
+    "report_table":f5 -> "contact_table":f1;
+    "report_table":f6 -> "chem_result_table":f1;
+    "report_table":f6 -> "hemato_result_table":f1;
+
+    "report_table":f2 -> "program_table":f1;
+    "report_table":f10 -> "contact_table":f1;
+    "program_table":f4 -> "lab_table":f1;
+    "program_table":f2 -> "qa_table":f1;
 }
