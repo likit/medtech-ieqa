@@ -1,6 +1,6 @@
 digraph G {
     graph [rankdir = "LR"];
-    "hospital_table" [shape = "record" label = "Hospital|ID (pri,auto)|name|<f3>Address ID"];
+    "hospital_table" [shape = "record" label = "Hospital|<f1>ID (pri,auto)|name|<f3>Address ID"];
     "address_table" [shape = "record" label="Address|<f1>ID (pri,auto)|Street\nNumber|<f3>District ID|<f4>Amphur ID|<f5>Province ID"];
     "province_table" [shape = "record" label="Province|<f1>ID (pri,auto)|Name|<f3>Health Region ID|<f4>Geo Region ID"];
     "amphur_table" [shape="record" label="Amphur|<f1>ID (pri,auto)|Name|<f3>Province ID|ZIP"];
@@ -8,7 +8,7 @@ digraph G {
     "health_region_table" [shape="record" label="Health Region|<f1>ID (pri,auto)"];
     "geo_region_table" [shape="record" label="Geo Region|<f1>ID (pri,auto)|Name"];
 
-    "lab_table" [shape="record" label="Lab|<f1>ID (pri,auto)|Name|Hospital ID|Address ID|Lab Head|QC Head"];
+    "lab_table" [shape="record" label="Lab|<f1>ID (pri,auto)|Name|<f3>Hospital ID|Address ID|Lab Head|QC Head"];
     "contact_table" [shape="record" label="Contact|<f1>ID (pri,auto)|Firstname|Lastname|Phone|Fax|Email"];
     "program_table" [shape="record" label="Program|<f1>ID (pri,auto)|<f2>QA ID|<f3>Code|<f4>Lab ID"];
 
@@ -42,4 +42,5 @@ digraph G {
     "report_table":f10 -> "contact_table":f1;
     "program_table":f4 -> "lab_table":f1;
     "program_table":f2 -> "qa_table":f1;
+    "lab_table":f3 -> "hospital_table":f1;
 }
