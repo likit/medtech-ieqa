@@ -83,6 +83,14 @@ trial_desc = Table('trial_descs', metadata,
         Column('end_date', DateTime(), nullable=False),
         Column('end_date', DateTime(), nullable=False),
     )
-            
+      
+contact = Table('contacts', metadata,
+        Column('id', Integer(), primary_key=True, autoincrement=True),
+        Column('firstname', String(50), nullable=False),
+        Column('lastname', String(50), nullable=False),
+        Column('phonenumber', String(50), nullable=False),
+        Column('fax', String(50)),
+        Column('email', String(50), nullable=False),
+    )      
 engine = create_engine('sqlite:///database/customer.db')
 metadata.create_all(engine)
