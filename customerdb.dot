@@ -10,7 +10,7 @@ digraph G {
 
     "lab_table" [shape="record" label="Lab|<f1>ID (pri,auto)|Name|<f3>Hospital ID|Address ID|Lab Head|QC Head"];
     "contact_table" [shape="record" label="Contact|<f1>ID (pri,auto)|Firstname|Lastname|Phone|Fax|Email"];
-    "program_table" [shape="record" label="Program|<f1>ID (pri,auto)|<f2>QA ID|<f3>Code|<f4>Lab ID"];
+    "program_table" [shape="record" label="Program|<f1>ID (pri,auto)|<f2>QA ID|<f3>Customer Code|<f4>Lab ID"];
 
     "cycle_table" [shape="record" label="Cycle|<f1>ID (pri,auto)|Start date|End date"];
     "report_table" [shape="record" label="Report|<f1>ID (pri,auto)|<f2>Program ID|<f3>Cycle ID|<f4>Trial Code|<f5>Contact ID|<f6>Result ID|Receive Date|Report Date|Analyze Date|<f10>Reported By ID"];
