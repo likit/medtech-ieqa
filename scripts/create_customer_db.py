@@ -66,6 +66,11 @@ program = Table('programs', metadata,
         Column('qa_id', ForeignKey('qas.id')),
         Column('code', Integer(), primary_key=True, autoincrement=True),
         Column('lab_id', ForeignKey('laboratories.id')),
+        
+cycle = Table('cycles', metadata,
+        Column('id', Integer(), primary_key=True, autoincrement=True),
+        Column('start_date', DateTime(), nullable=False),
+        Column('end_date', DateTime(), nullable=False),
              
 engine = create_engine('sqlite:///database/customer.db')
 metadata.create_all(engine)
