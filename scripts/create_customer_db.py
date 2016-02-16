@@ -25,7 +25,7 @@ amphur = Table('amphurs', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('name', String(50), nullable=False),
         Column('province_id', ForeignKey('provinces.id')),
-        Column('zip_code', Integer(), nullable=False))
+        Column('zip_code', Integer(), nullable=False)
     )
 
 district = Table('districts', metadata,
@@ -96,9 +96,9 @@ contact = Table('contacts', metadata,
 report = Table('reports', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('program_id', ForeignKey('programs.id')),
-        Column('trial_code', ForeignKey('code.trial_descs')),
+        Column('trial_code', ForeignKey('trial_descs.code')),
         Column('contact_id', ForeignKey('contacts.id')),
-        Column('result'),
+        Column('result', Integer()),
         Column('receive_date', DateTime(), nullable=False),
         Column('analyze_date', DateTime(), nullable=False),
         Column('report_date', DateTime(), autoincrement=True, nullable=False),
