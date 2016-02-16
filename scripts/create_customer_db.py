@@ -60,17 +60,29 @@ laboratory = Table('laboratories', metadata,
 qa = Table('qas', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('name', String(50), nullable=False),
-
+    )
+    
 program = Table('programs', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('qa_id', ForeignKey('qas.id')),
         Column('code', Integer(), primary_key=True, autoincrement=True),
         Column('lab_id', ForeignKey('laboratories.id')),
-        
+    )
+            
 cycle = Table('cycles', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('start_date', DateTime(), nullable=False),
         Column('end_date', DateTime(), nullable=False),
-             
+    )
+            
+trial_desc = Table('trial_descs', metadata,
+        Column('id', Integer(), primary_key=True, autoincrement=True),
+        Column('code', Integer(), nullable=False),
+        Column('cycle_id', ForeignKey('cycles.id')),
+        Column('start_date', DateTime(), nullable=False),
+        Column('end_date', DateTime(), nullable=False),
+        Column('end_date', DateTime(), nullable=False),
+    )
+            
 engine = create_engine('sqlite:///database/customer.db')
 metadata.create_all(engine)
