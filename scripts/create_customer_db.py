@@ -56,10 +56,16 @@ laboratory = Table('laboratories', metadata,
         Column('lab_head', String(50), nullable=False),
         Column('qc_head', String(50), nullable=False),
     )
+    
 qa = Table('qas', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('name', String(50), nullable=False),
-         
+
+program = Table('programs', metadata,
+        Column('id', Integer(), primary_key=True, autoincrement=True),
+        Column('qa_id', ForeignKey('qas.id')),
+        Column('code', Integer(), primary_key=True, autoincrement=True),
+        Column('lab_id', ForeignKey('laboratories.id')),
              
 engine = create_engine('sqlite:///database/customer.db')
 metadata.create_all(engine)
