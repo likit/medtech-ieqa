@@ -24,9 +24,15 @@ province = Table('provinces', metadata,
 amphur = Table('amphurs', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('name', String(50), nullable=False),
-        Column('province_id', ForeignKey('province.id')),
+        Column('province_id', ForeignKey('provinces.id')),
         Column('zip_code', Integer(), nullable=False))
     )
 
+district = Table('districts', metadata,
+        Column('id', Integer(), primary_key=True, autoincrement=True),
+        Column('name', String(50), nullable=False),
+        Column('amphur_id', ForeignKey('amphurs.id')),
+    )
+    
 engine = create_engine('sqlite:///database/customer.db')
 metadata.create_all(engine)
