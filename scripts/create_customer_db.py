@@ -33,6 +33,15 @@ district = Table('districts', metadata,
         Column('name', String(50), nullable=False),
         Column('amphur_id', ForeignKey('amphurs.id')),
     )
-    
+ 
+address = Table('addresses', metadata,
+        Column('id', Integer(), primary_key=True, autoincrement=True),
+        Column('street_number', Integer(), nullable=False),
+        Column('district_id', ForeignKey('districts.id')),
+        Column('amphur_id', ForeignKey('amphurs.id')),
+        Column('province_id', ForeignKey('provinces.id')),
+    )
+
+       
 engine = create_engine('sqlite:///database/customer.db')
 metadata.create_all(engine)
