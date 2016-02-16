@@ -81,7 +81,7 @@ trial_desc = Table('trial_descs', metadata,
         Column('cycle_id', ForeignKey('cycles.id')),
         Column('start_date', DateTime(), nullable=False),
         Column('end_date', DateTime(), nullable=False),
-        Column('end_date', DateTime(), nullable=False),
+        Column('due_date', DateTime(), nullable=False),
     )
       
 contact = Table('contacts', metadata,
@@ -91,6 +91,19 @@ contact = Table('contacts', metadata,
         Column('phonenumber', String(50), nullable=False),
         Column('fax', String(50)),
         Column('email', String(50), nullable=False),
-    )      
+    )
+          
+report = Table('reports', metadata,
+        Column('id', Integer(), primary_key=True, autoincrement=True),
+        Column('program_id', ForeignKey('programs.id')),
+        Column('trial_code', ForeignKey('code.trial_descs')),
+        Column('contact_id', ForeignKey('contacts.id')),
+        Column('result'),
+        Column('receive_date', DateTime(), nullable=False),
+        Column('analyze_date', DateTime(), nullable=False),
+        Column('report_date', DateTime(), autoincrement=True, nullable=False),
+        Column('report_by_id', ForeignKey('contacts.id')),
+    )
+    
 engine = create_engine('sqlite:///database/customer.db')
 metadata.create_all(engine)
