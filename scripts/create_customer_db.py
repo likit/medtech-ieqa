@@ -56,7 +56,10 @@ laboratory = Table('laboratories', metadata,
         Column('lab_head', String(50), nullable=False),
         Column('qc_head', String(50), nullable=False),
     )
-            
+qa = Table('qas', metadata,
+        Column('id', Integer(), primary_key=True, autoincrement=True),
+        Column('name', String(50), nullable=False),
+         
              
 engine = create_engine('sqlite:///database/customer.db')
 metadata.create_all(engine)
