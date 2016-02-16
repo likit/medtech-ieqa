@@ -41,7 +41,12 @@ address = Table('addresses', metadata,
         Column('amphur_id', ForeignKey('amphurs.id')),
         Column('province_id', ForeignKey('provinces.id')),
     )
-
-       
+    
+hospital = Table('hospitals', metadata,
+        Column('id', Integer(), primary_key=True, autoincrement=True),
+        Column('name', String(50), nullable=False),
+        Column('address_id', ForeignKey('addresses.id')),
+    )
+             
 engine = create_engine('sqlite:///database/customer.db')
 metadata.create_all(engine)
