@@ -21,5 +21,12 @@ province = Table('provinces', metadata,
         Column('geo_region_id', ForeignKey('geo_regions.id'))
     )
 
+amphur = Table('amphurs', metadata,
+        Column('id', Integer(), primary_key=True, autoincrement=True),
+        Column('name', String(50), nullable=False),
+        Column('province_id', ForeignKey('province.id')),
+        Column('zip_code', Integer(), nullable=False))
+    )
+
 engine = create_engine('sqlite:///database/customer.db')
 metadata.create_all(engine)
