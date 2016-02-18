@@ -105,15 +105,26 @@ report = Table('reports', metadata,
         Column('report_by_id', ForeignKey('contacts.id')),
     )
 
-clinchem_result = Table('results', metadata,
+clinchem_result = Table('clinchem_results', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('result_id', ForeignKey('report.result_id')),
-        Column('test_id', Integer()),
+        Column('test_id', ForeignKey('clinchem_tests.id')),
+        Column('principle', ForeignKey('clinchem_principles.id')),
         Column('value', Integer()),
 #value have . float format
-        Column('principle', Integer()),
     )      
-    
 
+clinchem_test = Table('clinchem_tests', metadata,
+        Column('id', Integer(), primary_key=True, autoincrement=True),
+        Column('test', String(50), nullable=False),
+        Column('unit', String(50), nullable=False),
+    ) 
+      
+clinchem_principle = Table('clinchem_principles', metadata,
+        Column('id', Integer(), primary_key=True, autoincrement=True),
+        Column('priinciple', String(50), nullable=False),
+
+    )   
+    
 engine = create_engine('sqlite:///database/customer.db')
 metadata.create_all(engine)
