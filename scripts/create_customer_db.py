@@ -98,12 +98,22 @@ report = Table('reports', metadata,
         Column('program_id', ForeignKey('programs.id')),
         Column('trial_code', ForeignKey('trial_descs.code')),
         Column('contact_id', ForeignKey('contacts.id')),
-        Column('result', Integer()),
+        Column('result_id', Integer(),),
         Column('receive_date', DateTime(), nullable=False),
         Column('analyze_date', DateTime(), nullable=False),
         Column('report_date', DateTime(), autoincrement=True, nullable=False),
         Column('report_by_id', ForeignKey('contacts.id')),
     )
+
+clinchem_result = Table('results', metadata,
+        Column('id', Integer(), primary_key=True, autoincrement=True),
+        Column('result_id', ForeignKey('report.result_id')),
+        Column('test_id', Integer()),
+        Column('value', Integer()),
+#value have . float format
+        Column('principle', Integer()),
+    )      
     
+
 engine = create_engine('sqlite:///database/customer.db')
 metadata.create_all(engine)
