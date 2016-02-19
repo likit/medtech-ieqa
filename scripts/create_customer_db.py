@@ -33,7 +33,6 @@ district = Table('districts', metadata,
         Column('name', String(50), nullable=False),
         Column('amphur_id', ForeignKey('amphurs.id')),
     )
- 
 address = Table('addresses', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('street_number', Integer(), nullable=False),
@@ -41,13 +40,11 @@ address = Table('addresses', metadata,
         Column('amphur_id', ForeignKey('amphurs.id')),
         Column('province_id', ForeignKey('provinces.id')),
     )
-    
 hospital = Table('hospitals', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('name', String(50), nullable=False),
         Column('address_id', ForeignKey('addresses.id')),
     )
-    
 laboratory = Table('laboratories', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('name', String(50), nullable=False),
@@ -56,25 +53,21 @@ laboratory = Table('laboratories', metadata,
         Column('lab_head', String(50), nullable=False),
         Column('qc_head', String(50), nullable=False),
     )
-    
 qa = Table('qas', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('name', String(50), nullable=False),
     )
-    
 program = Table('programs', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('qa_id', ForeignKey('qas.id')),
         Column('code', Integer(), primary_key=True, autoincrement=True),
         Column('lab_id', ForeignKey('laboratories.id')),
     )
-            
 cycle = Table('cycles', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('start_date', DateTime(), nullable=False),
         Column('end_date', DateTime(), nullable=False),
     )
-            
 trial_desc = Table('trial_descs', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('code', Integer(), nullable=False),
@@ -83,7 +76,6 @@ trial_desc = Table('trial_descs', metadata,
         Column('end_date', DateTime(), nullable=False),
         Column('due_date', DateTime(), nullable=False),
     )
-      
 contact = Table('contacts', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('firstname', String(50), nullable=False),
@@ -92,7 +84,6 @@ contact = Table('contacts', metadata,
         Column('fax', String(50)),
         Column('email', String(50), nullable=False),
     )
-          
 report = Table('reports', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('program_id', ForeignKey('programs.id')),
@@ -110,21 +101,18 @@ clinchem_result = Table('clinchem_results', metadata,
         Column('result_id', ForeignKey('report.result_id')),
         Column('test_id', ForeignKey('clinchem_tests.id')),
         Column('principle', ForeignKey('clinchem_principles.id')),
-        Column('value', Integer()),
-#value have . float format
-    )      
+        Column('value', Numeric()),
+    )
 
 clinchem_test = Table('clinchem_tests', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
         Column('test', String(50), nullable=False),
         Column('unit', String(50), nullable=False),
-    ) 
-      
+    )
 clinchem_principle = Table('clinchem_principles', metadata,
         Column('id', Integer(), primary_key=True, autoincrement=True),
-        Column('priinciple', String(50), nullable=False),
+        Column('principle', String(50), nullable=False),
 
-    )   
-    
+    )
 engine = create_engine('sqlite:///database/customer.db')
 metadata.create_all(engine)
