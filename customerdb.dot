@@ -17,9 +17,6 @@ digraph G {
     "trial_desc_table" [shape="record" label="Trial Desc|<f1>ID (pri,auto)|<f2>Code|<f3>Cycle ID|Start Date|End Date|Due Date"];
     "qa_table" [shape="record" label="QA|<f1>ID (pri,auto)|Name"]
 
-    "chem_result_table" [shape="record" label="Chem Result|<f1>ID (pri,auto)|Glucose|..."];
-    "hemato_result_table" [shape="record" label="Hemato Result|<f1>ID (pri,auto)|WBC|..."];
-
     "address_table":f3 -> "district_table":f1;
     "address_table":f4 -> "amphur_table":f1;
     "address_table":f5 -> "province_table":f1;
@@ -36,11 +33,19 @@ digraph G {
     "report_table":f4 -> "trial_desc_table":f2
     "report_table":f5 -> "contact_table":f1;
     "report_table":f6 -> "chem_result_table":f1;
-    "report_table":f6 -> "hemato_result_table":f1;
 
     "report_table":f2 -> "program_table":f1;
     "report_table":f10 -> "contact_table":f1;
     "program_table":f4 -> "lab_table":f1;
     "program_table":f2 -> "qa_table":f1;
     "lab_table":f3 -> "hospital_table":f1;
+
+    "chem_result_table" [shape="record" label="EQAC Results|<f1>ID (pri,auto)|<f2>Report ID|<f3>Test ID|<f4>Principle ID|Value"]
+    "report_table":f1 -> "chem_result_table":f2;
+
+    "chem_test_table" [shape="record" label="EQAC tests|<f1>ID (pri,auto)|<f2>Test|Unit"];
+    "chem_result_table":f3 -> "chem_test_table":f1;
+
+    "chem_principle_table" [shape="record" label="EQAC Principles|<f1>ID (pri,auto)|<f2>Principle"];
+    "chem_result_table":f4 -> "chem_principle_table":f1;
 }
